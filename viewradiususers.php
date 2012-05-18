@@ -44,11 +44,13 @@ Short Name is just an alias so the entry is easily identifiable<br><br></center>
 <form action="viewradiususers.php" method="post"><br>
 <font size=+2><b>View RADIUS Users</b></font><br><br>
 <input type="submit" /><br>
+</form>
 </td>
 <td width="700px" align=center>
 <form action="viewaccesspoints.php" method="post"><br>
 <font size=+2><b>View Access Points</b></font><br><br>
 <input type="submit" /><br>
+</form>
 </td>
 </tr>
 </table>
