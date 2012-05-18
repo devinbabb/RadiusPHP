@@ -60,6 +60,8 @@ Short Name is just an alias so the entry is easily identifiable<br><br><hr></cen
 </html>
 
 <?php
+include 'config.php.inc';
+
 if($_POST) {
         $aip = trim($_POST["aip"]);
         $secret = trim($_POST["secret"]);
@@ -68,11 +70,11 @@ if($_POST) {
         $nas_query = "INSERT INTO `nas` (`nasname`, `shortname`, `secret`) VALUES
 ('$aip', '$shortname', '$secret')";
 
-        $execute = mysql_connect("127.0.0.1", "root", "password") or die(mysql_error()); 
+        $execute = mysql_connect($mysql_host, $mysql_user, $mysql_pass) or die(mysql_error()); 
         if($execute == 0) {
                 echo "Error connecting to database, please contact the database administrator.<br>";
                 }
-        $execute = mysql_select_db("wireless2") or die(mysql_error());
+        $execute = mysql_select_db($database) or die(mysql_error());
         if($execute == 0) {
                 echo "Error selecting the database, it may not exist on this server, please contact the database administrator.<br>";
                 }
@@ -83,7 +85,7 @@ if($_POST) {
                 echo "Error inserting the Access Point in to the 'nas' table.  Please contact the database administrator.<br>";
                 }
 
-        $execute = exec("/usr/sbin/freeradius -C");
+        $execute = exec($restartcommand);
         if($execute == 0) {
                 echo "Error refreshing the database.  This must be done manually.<br>";
                 }

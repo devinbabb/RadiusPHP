@@ -60,6 +60,8 @@ Short Name is just an alias so the entry is easily identifiable<br><br><hr></cen
 </html>
 
 <?php
+include 'config.php.inc'; 
+
 if($_POST) {
         $user = trim($_POST["cuser"]);
         $pass = trim($_POST["cpass"]);
@@ -74,11 +76,11 @@ if($_POST) {
         $userbillinfo_query = "INSERT INTO `userbillinfo` (`username`, `planName`, `hotspot_id`, `hotspotlocation`, `contactperson`, `company`, `email`, `phone`, `address`, `city`, `state`, `country`, `zip`, `paymentmethod`, `cash`, `creditcardname`, `creditcardnumber`, `creditcardverification`, `creditcardtype`, `creditcardexp`, `notes`, `changeuserbillinfo`, `lead`, `coupon`, `ordertaker`, `billstatus`, `lastbill`, `nextbill`, `nextinvoicedue`, `billdue`, `postalinvoice`, `faxinvoice`, `emailinvoice`, `batch_id`, `creationdate`, `creationby`, `updatedate`, `updateby`) VALUES
 ('$user', NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', NULL, '$time', 'administrator', NULL, NULL)";
         
-        $execute = mysql_connect("127.0.0.1", "root", "password") or die(mysql_error());
+        $execute = mysql_connect($mysql_host, $mysql_user, $mysql_pass) or die(mysql_error());
         if($execute == 0) {
                 echo "Error connecting to database, please contact the database administrator.<br>";
                 }
-        $execute = mysql_select_db("wireless2") or die(mysql_error());
+        $execute = mysql_select_db($database) or die(mysql_error());
         if($execute == 0) {
                 echo "Error selecting the database, it may not exist on this server, please contact the database administrator.<br>";
                 }
@@ -96,7 +98,7 @@ if($_POST) {
         if($execute == 0) {
                 echo "Error inserting the customer in to the 'userbillinfo' table.  Please contact the database administrator.<br>";
                 }
-        $execute = exec("/usr/sbin/freeradius -C");
+        $execute = exec($restartcommand);
         if($execute == 0) {
                 echo "Error refreshing the database.  This must be done manually.<br>";
                 }
