@@ -41,14 +41,16 @@ Short Name is just an alias so the entry is easily identifiable<br><br></center>
 <table border="1" align="center">
 <tr>
 <td width="700px" align=center>
-<form action="viewradiususers.php" method="post"><br>
+<form action="viewradiususers.php"><br>
 <font size=+2><b>View RADIUS Users</b></font><br><br>
 <input type="submit" /><br>
+</form>
 </td>
 <td width="700px" align=center>
-<form action="viewaccesspoints.php" method="post"><br>
+<form action="viewaccesspoints.php"><br>
 <font size=+2><b>View Access Points</b></font><br><br>
 <input type="submit" /><br>
+</form>
 </td>
 </tr>
 </table>
@@ -62,8 +64,7 @@ Short Name is just an alias so the entry is easily identifiable<br><br></center>
 <?php
 include 'config.php.inc'; 
 
-if($_POST) {
-        $execute = mysql_connect($mysql_host, $mysql_user, $mysql_pass) or die(mysql_error());
+     $execute = mysql_connect($mysql_host, $mysql_user, $mysql_pass) or die(mysql_error());
         if($execute == 0) {
                 echo "Error connecting to database, please contact the database administrator.<br>";
                 }
@@ -78,5 +79,5 @@ if($_POST) {
         echo "<tr><td width=\"25%\" align=\"center\">".$row['nasname']. "</td><td width=\"25%\" align=\"center\">". $row['secret']."</td><td width=\"25%\" align=\"center\">". $row['shortname']."</td></tr>";
         }
 ?></table><?php
-}
+
 ?>

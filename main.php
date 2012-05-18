@@ -61,24 +61,3 @@ Short Name is just an alias so the entry is easily identifiable<br><br></center>
 </body>
 </html>
 
-<?php
-include 'config.php.inc';
-
-
-        $execute = mysql_connect($mysql_host, $mysql_user, $mysql_pass) or die(mysql_error());
-        if($execute == 0) {
-                echo "Error connecting to database, please contact the database administrator.<br>";
-                }
-        $execute = mysql_select_db($database) or die(mysql_error());
-        if($execute == 0) {
-                echo "Error selecting the database, it may not exist on this server, please contact the database administrator.<br>";
-                }
-        $query = "SELECT * FROM radcheck";
-        $result = mysql_query($query) or die(mysql_error());
-?><table border="1" align="center" width="100%"><tr><td width="50%" align="center"><font size=+2><u><b>Username</u></b></font></td><td width="50%" align="center"><font size=+2><u><b>Password</u></b></td></font></tr><?php
-        while($row = mysql_fetch_array($result)) {
-        echo "<tr><td width=\"50%\" align=\"center\">".$row['username']. "</td><td width=\"50%\" align=\"center\">". $row['value']."</td></tr>";
-        }
-?></table><?php
-
-?>
