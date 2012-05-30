@@ -2,29 +2,32 @@
 <body>
 <title>Ubiquiti Wireless RADIUS Add</title>
 <span style="font-family: arial, geneva, helvetica, sans-serif;">
-<center><table>
+<center>
+<table>
 <tr>
 <td width="700px" align=center>
 <form action="addradiususer.php" method="post"><br>
 <font size=+2><b>Add a New Radius User</b></font><br><br>
-<hr>
-<br>
-Username: <input type="text" name="cuser" /><br>
-Password: <input type="text" name="cpass" /><br><br>
+Username <a href="javascript:alert('This is the username that will need to be entered in to the customer\'s CPE.' + '\n' + '       The customer will not need to and should not know this username' + '\n' + '                                           Format Example: JohnDoe')"><font size=-2>[?]</font></a>: <input type="text" name="cuser" /><br>
+Password <a href="javascript:alert('This is the password that will need to be entered in to the customer\'s CPE.' + '\n' + '                   As with the username, the customer does not need this')"><font size=-2>[?]</font></a>: <input type="text" name="cpass" /><br><br><br>
 <input type="submit" value="Add User" /><br>
-<hr>
 </form>
 </td>
 <td width="700px" align=center>
 <form action="addaccesspoint.php" method="post"><br>
 <font size=+2><b>Add an Access Point</b></font><br><br>
-<hr>
-IP Address: <input type="text" name="aip" /><br>
-Shared Secret: <input type="text" name="secret" /><br>
-Short Name: <input type="text" name="shortname" /><br><br>
+IP Address <a href="javascript:alert('The IP address can be a single IP such as 10.250.0.2/32 or you can do a whole range like 10.250.0.0/24')"><font size=-2>[?]</font></a>: <input type="text" name="aip" /><br>
+<a href="http://www.pctools.com/guides/password/?length=32&phonetic=on&alpha=on&mixedcase=on&numeric=on&punctuation=on&nosimilar=on&quantity=1&generate=true#password_generator" target="_blank">Shared Secret</a>  <a href="javascript:alert('This shared secret must also be configured on the Access Point in order for the server and AP to communicate properly!')"><font size=-2>[?]</font></a>: <input type="text" name="secret" /><br>
+Short Name <a href="javascript:alert('Short Name is just an alias so the entry is easily identifiable')"><font size=-2>[?]</font></a>: <input type="text" name="shortname" /><br><br>
 <input type="submit" value="Add Access Point" /><br>
-<hr>
 </form>
+</td>
+</tr>
+</table>
+<table width="1400px">
+<tr>
+<td>
+<hr>
 </td>
 </tr>
 </table>
@@ -112,9 +115,9 @@ include 'config.php.inc';
                 }
         
         $result = mysql_query($ap_search) or die(mysql_error());
-?><table border="1" bordercolor=GREEN align="center" width="1000px"><tr><td width="33%" align="center"><font size=+2><u><b>Access Point IP</u></b></font></td><td width="34%" align="center"><font size=+2><u><b>Shortname</u></b></font></td><td width="33%" align="center"><font size=+2><u><b>Secret</u></b></font></td></tr><?php
+?><table border="1" bordercolor=GREEN align="center" width="1000px"><tr><td width="33%" align="center"><font size=+2><u><b>Shortname (Alias)</u></b></font></td><td width="34%" align="center"><font size=+2><u><b>Access Point IP</u></b></font></td><td width="33%" align="center"><font size=+2><u><b>Secret</u></b></font></td></tr><?php
         while($row = mysql_fetch_array($result)) {
-        echo "<tr><td width=\"20%\" align=\"center\">".$row['nasname']. "</td><td width=\"20%\" align=\"center\">". $row['shortname']."</td><td width=\"20%\" align=\"center\">". $row['secret']."</td></tr>";
+        echo "<tr><td width=\"20%\" align=\"center\">".$row['shortname']. "</td><td width=\"20%\" align=\"center\">". $row['nasname']."</td><td width=\"20%\" align=\"center\">". $row['secret']."</td></tr>";
         }
 ?></table><?php
 
