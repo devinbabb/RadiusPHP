@@ -8,10 +8,10 @@
 <form action="addradiususer.php" method="post"><br>
 <font size=+2><b>Add a New Radius User</b></font><br><br>
 <hr>
-<br>
 Username: <input type="text" name="cuser" /><br>
 Password: <input type="text" name="cpass" /><br><br>
-<input type="submit" value="Add User" /><br>
+<hr>
+<input type="submit" /><br>
 <hr>
 </form>
 </td>
@@ -21,13 +21,16 @@ Password: <input type="text" name="cpass" /><br><br>
 <hr>
 IP Address: <input type="text" name="aip" /><br>
 Shared Secret: <input type="text" name="secret" /><br>
-Short Name: <input type="text" name="shortname" /><br><br>
-<input type="submit" value="Add Access Point" /><br>
+Short Name: <input type="text" name="shortname" /><br>
+<hr>
+<input type="submit" /><br>
 <hr>
 </form>
 </td>
 </tr>
 </table>
+<br>
+<br>
 <table width="1400px">
 <tr>
 <td>
@@ -42,13 +45,13 @@ Short Name is just an alias so the entry is easily identifiable<br><br><hr></cen
 <td width="700px" align=center>
 <form action="viewradiususers.php" method="post"><br>
 <font size=+2><b>View RADIUS Users</b></font><br><br>
-<input type="submit" value="View" /><br>
+<input type="submit" /><br>
 </form>
 </td>
 <td width="700px" align=center>
 <form action="viewaccesspoints.php" method="post"><br>
 <font size=+2><b>View Access Points</b></font><br><br>
-<input type="submit" value="View" /><br>
+<input type="submit" /><br>
 </form>
 </td>
 </tr>
@@ -66,14 +69,14 @@ Short Name is just an alias so the entry is easily identifiable<br><br><hr></cen
 <form action="queryradiususers.php" method="post"><br>
 <font size=+2><b>Search RADIUS Users</b></font><br><br>
 <input type="text" name="csearch" /><br><br>
-<input type="submit" value="Search" /><br>
+<input type="submit" /><br>
 </form>
 </td>
 <td width="700px" align=center>
 <form action="queryaccesspoints.php" method="post"><br>
 <font size=+2><b>Search Access Points</b></font><br><br>
 <input type="text" name="apsearch" /><br><br>
-<input type="submit" value="Search" /><br>
+<input type="submit" name="Search" /><br>
 </form>
 </td>
 </tr>
@@ -90,31 +93,22 @@ Short Name is just an alias so the entry is easily identifiable<br><br><hr></cen
 </html>
 
 <?php
-include 'config.php.inc'; 
+include 'config.php.inc';
 
-        $search = trim($_POST["csearch"]);
-        
-        $cus_search = "SELECT * FROM `wireless2`.`radcheck` WHERE (CONVERT( `username` USING utf8 ) LIKE '%$search%') LIMIT 0 , 30";
 
         $execute = mysql_connect($mysql_host, $mysql_user, $mysql_pass) or die(mysql_error());
         if($execute == 0) {
                 echo "Error connecting to database, please contact the database administrator.<br>";
                 }
-				
         $execute = mysql_select_db($database) or die(mysql_error());
         if($execute == 0) {
                 echo "Error selecting the database, it may not exist on this server, please contact the database administrator.<br>";
                 }
-        
-		$execute = mysql_query($cus_search);
-        if($execute == 0) {
-                echo "Error searching the database for $search.  Please contact the database administrator.<br>";
-                }
-        
-        $result = mysql_query($cus_search) or die(mysql_error());
-?><table border="1" bordercolor=BLUE align="center" width="1000px"><tr><td width="50%" align="center"><font size=+2><u><b>Username</u></b></font></td><td width="50%" align="center"><font size=+2><u><b>Password</u></b></td></font></tr><?php
+        $query = "SELECT * FROM radcheck";
+        $result = mysql_query($query) or die(mysql_error());
+?><table border="1" align="center" width="1400px"><tr><td width="50%" align="center"><font size=+2><u><b>Username</u></b></font></td><td width="50%" align="center"><font size=+2><u><b>Password</u></b></td></font></tr><?php
         while($row = mysql_fetch_array($result)) {
-        echo "<tr><td width=\"20%\" align=\"center\">".$row['username']. "</td><td width=\"20%\" align=\"center\">". $row['value']."</td></tr>";
+        echo "<tr><td width=\"50%\" align=\"center\">".$row['username']. "</td><td width=\"50%\" align=\"center\">". $row['value']."</td></tr>";
         }
 ?></table><?php
 
