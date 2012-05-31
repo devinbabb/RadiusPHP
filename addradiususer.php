@@ -122,9 +122,13 @@ if($_POST) {
         if($execute == 0) {
                 echo "Error inserting the customer in to the 'userbillinfo' table.  Please contact the database administrator.<br>";
                 }
-        $execute = exec($restartcommand);
-        if($execute == 0) {
-                echo "Error refreshing the database.  This must be done manually.<br>";
-                }
+       exec($restartcommand, $out, $exit);
+	if($exitCode != 0)
+		echo "Failed to execute command exit was: $exit and output was: $out";
+
+       // $execute = exec($restartcommand);
+       // if($execute == 0) {
+       //        echo "Error refreshing the database.  This must be done manually.<br>";
+       //         }
 }
 ?>
