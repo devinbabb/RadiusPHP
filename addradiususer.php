@@ -156,9 +156,11 @@ if($_POST) {
         if($execute == 0) {
                 echo "Error inserting the customer in to the 'userbillinfo' table.  Please contact the database administrator.<br>";
                 }
-        $execute = exec($restartcommand, $out, $exit);
-			if($exit != 0)
-			echo "Failed to execute command exit was: $exit and output was: $out";
+	exec($restartcommand, $out, $exit);
+        if($exit != 0) {
+                echo "Failed: Exit code was $exit";
+                echo "Failed: Output was $out";
+        }
 
 		// $execute = exec($restartcommand);
 		// if($execute == 0) {

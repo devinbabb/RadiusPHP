@@ -142,10 +142,15 @@ if($_POST) {
                 } else {
                 echo "Error inserting the Access Point in to the 'nas' table.  Please contact the database administrator.<br>";
                 }
+	exec($restartcommand, $out, $exit);
+	if($exit != 0) {
+		echo "Failed: Exit code was $exit";
+		echo "Failed: Output was $out";
+	}
 
-        $execute = exec($restartcommand);
-        if($execute == 0) {
-                echo "Error refreshing the database.  This must be done manually.<br>";
-                }
+       	//$execute = exec($restartcommand);
+        //if($execute == 0) {
+        //      echo "Error refreshing the database.  This must be done manually.<br>";
+        //        }
 }
 ?>
